@@ -1,5 +1,4 @@
 <?php
-require_once "../Controlador/userControlador.php";
 session_start();
 if (!isset($_SESSION["Invitado"])) {
     $_SESSION["Invitado"] = true;
@@ -27,19 +26,18 @@ if (!isset($_SESSION["Invitado"])) {
             <input type="email" name="email" id="correo" value="" placeholder="Correo electrónico..." required></div>
         <div><label for="nombre"><h2>Nombre del usuario</h2></label><br>
             <input type="text" name="nombre" id="nombre" value="" placeholder="Nombre del usuario..." maxlength="20" required></div>
-        <div><label for="contra1"><h2>Contraseña del usuario</h2></label><br>
-            <input type="password" name="contra1" id="contra1" value="" placeholder="Contraseña del usuario..." maxlength="20" required></div>
-        <div><label for="contra2"><h2>Repetir la contraseña</h2></label><br>
-            <input type="password" name="contra2" id="contra2" value="" placeholder="Contraseña del usuario..." maxlength="20" required></div><br>
-        <div>
-            <button type="submit" id="registrar">Registrarse</button><br>
-            <a href="#"><h4>¿Ya tienes cuenta?</h4></a>
+        <div><label for="contrasena"><h2>Contraseña del usuario</h2></label><br>
+            <input type="password" name="contrasena" id="contra1" value="" placeholder="Contraseña del usuario..." maxlength="20" required>
         </div>
+            <button type="submit" id="registrar">Registrarse</button><br>
+            <a href="IniciarSesion.php"><h4>¿Ya tienes cuenta?</h4></a>
     </div>
 </form>
 </body>
 </html>
 <?php
+    require_once '../Modelo/UserModelo.php';
+    require_once '../Controlador/userControlador.php';
     $login = new userControlador();
     $login -> registrarUsuarioControlador();
 ?>

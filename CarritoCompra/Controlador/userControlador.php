@@ -1,41 +1,72 @@
 <?php
+require_once '../Modelo/UserModelo.php';
+use Modelo\UserModelo;
 class userControlador
 {
     public function registrarUsuarioControlador()
     {
-        if(isset($_POST["email"])){
-            $_SESSION["Usuario"] = true;
-
-            if (!isset($_COOKIE['UsuarioIniciado'])) {
-                $UsuarioIniciado = session_id(); // Obtén el ID de sesión actual
-                setcookie('sesion_id', $UsuarioIniciado); // Crea la cookie con el ID de sesión y una duración de 1 hora (puedes ajustar el tiempo)
-                echo "<h1>sesionGuardada</h1>";
-
-            }
-
-            header("Location: index.php");
-        }
-
-        /*
         if (isset($_POST["email"])) {
-            //Crearemos una array con el contenido del formulario
-            $datosControlador = array("email" => $_POST["email"], "nombre" => $_POST["nombre"],
-                "contra1" => $_POST["contra1"]);
-            //Creamos una variable con el nombre de la tabla a la que le queremos insertar
-            $tablaBD = "usuario";
+            $datosControlador = array("nombre" => $_POST["nombre"],"email" => $_POST["email"],
+                "contrasena" => $_POST["contrasena"]);
+            $tablaBD = "Usuario";
+            $respuesta = UserModelo::registrarUsuarioModelo($datosControlador, $tablaBD);
 
-            //Inicializamos una variable con el valor que devuelva la función
-            $respuesta = UsuarioModelo::registrarUsuarioModelo($datosControlador, $tablaBD);
-
-            //Como va a devolver una cadena, analizamos cual es y en consecuencia
             if ($respuesta == "Registro realizado correctamente") {
-                //Si el registro se hizo bien, volvemos a la página de registrar
-                header("location:crudUsuarios.php?accion=listarUsuario");
+                header("index.php");
             } else {
-                //Sino, mostramos un error
                 echo "Hubo un error en el proceso del registro";
             }
         }
-        */
+
     }
+    public function listarUsuarios()
+    {
+        //Eligimos tabla
+        $tablaBD = "Usuario";
+        //llamamos a la función de listar todos
+        $respuesta = UserModelo::listarUsuariosModelo($tablaBD);
+
+        //Con la que devuelva esta función, haremos con un foreach toda
+        //la maquetación de la página por cada registro que devuelva la función
+        echo json_encode($respuesta);
+    }
+    public function IniciarSesionControlador()
+    {
+        //Eligimos tabla
+        $tablaBD = "Usuario";
+        //llamamos a la función de listar todos
+        $respuesta = UserModelo::IniciarSesionModelo($tablaBD);
+
+        //Con la que devuelva esta función, haremos con un foreach toda
+        //la maquetación de la página por cada registro que devuelva la función
+        echo json_encode($respuesta);
+    }
+    public function ingresoControlador()
+    {
+        if (isset($_POST["nombre"])) {
+
+            $datosControlador = array("nombre" => $_POST["nombre"],
+                "contrasena" => $_POST["contrasena"]);
+            $tablaBD = "Usuario";
+            //$datos = implode("+", $datosControlador);
+
+            $respuesta = UserModelo::ingresoModelo($datosControlador, $tablaBD);
+
+            if ($respuesta["nombre"] == $_POST["nombre"] && $respuesta["contraseña"] == $_POST["contrasena"]) {
+
+                echo "todo correcto";
+                $_SESSION["Usuario"] = true;
+                header("location:index.php");
+
+            }else {
+                //Si no existe el usuario, error
+                echo "???????????????????";
+                header("location:IniciarSesion.php");
+
+            }
+
+        }
+
+    }
+
 }

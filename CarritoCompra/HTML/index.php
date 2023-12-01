@@ -21,39 +21,7 @@ if (!isset($_SESSION["Invitado"])) {
 include ("headerUsuario.php");
 ?>
 <div id="productos">
-    <div id="producto">
-        <div>
-            <img src="../FnacImagenes/user.png">
-            <div>
-                <h1 class="nombreProducto">Producto 1</h1>
-                <button id="boton">
-                    <p>Agregar a cesta </p>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div id="producto">
-        <div>
-            <img src="../FnacImagenes/lupa.png">
-            <div>
-                <h1 class="nombreProducto">Producto 2</h1>
-                <button id="boton">
-                    <p>Agregar a cesta </p>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div id="producto">
-        <div>
-            <img src="../FnacImagenes/market.png">
-            <div>
-                <h1 class="nombreProducto">Producto 3</h1>
-                <button id="boton">
-                    <p>Agregar a cesta</p>
-                </button>
-            </div>
-        </div>
-    </div>
+
 </div>
 </body>
 </html>

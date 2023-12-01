@@ -24,7 +24,6 @@ include ("headerUsuario.php");
     <h1>Productos Seleccionados</h1>
     <div id="listados">
 
-
     </div>
 </div>
 </body>
